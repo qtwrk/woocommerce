@@ -35,12 +35,21 @@ const TwoColumnTaskList = lazy(
 		)
 );
 
+const SectionedTaskList = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "two-column-task-list" */ '../two-column-tasks/sectioned-task-list'
+		)
+);
+
 function getTaskListComponent(
 	taskListId: string
 ): React.LazyExoticComponent< React.FC< TaskListProps > > {
 	switch ( taskListId ) {
 		case 'setup_experiment_1':
 			return TwoColumnTaskList;
+		case 'setup_experiment_2':
+			return SectionedTaskList;
 		default:
 			return TaskList;
 	}
@@ -131,17 +140,7 @@ export const Tasks: React.FC< TasksProps > = ( { query } ) => {
 				: ! id.endsWith( 'two_column' )
 		)
 		.map( ( taskList ) => {
-			const {
-				id,
-				eventPrefix,
-				isComplete,
-				isHidden,
-				isVisible,
-				isToggleable,
-				title,
-				tasks,
-				displayProgressHeader,
-			} = taskList;
+			const { id, isHidden, isVisible, isToggleable } = taskList;
 
 			if ( ! isVisible ) {
 				return null;
@@ -153,18 +152,13 @@ export const Tasks: React.FC< TasksProps > = ( { query } ) => {
 				<Fragment key={ id }>
 					<Suspense fallback={ null }>
 						<TaskListComponent
-							id={ id }
-							eventPrefix={ eventPrefix }
-							isComplete={ isComplete }
 							isExpandable={
 								experimentAssignment?.variationName ===
 								'treatment'
 							}
 							query={ query }
-							tasks={ tasks }
-							title={ title }
 							twoColumns={ false }
-							displayProgressHeader={ displayProgressHeader }
+							{ ...taskList }
 						/>
 					</Suspense>
 					{ isToggleable && (
