@@ -141,6 +141,7 @@ class TaskLists {
 				'options'      => array(
 					'use_completed_title' => true,
 				),
+				'display_progress_header' => true,
 				'sections'     => array(
 					array(
 						'id'          => 'basics',

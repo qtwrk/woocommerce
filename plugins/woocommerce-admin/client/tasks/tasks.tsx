@@ -63,14 +63,26 @@ export const Tasks: React.FC< TasksProps > = ( { query } ) => {
 		'woocommerce_tasklist_progression'
 	);
 
-	const { isResolving, taskLists } = useSelect( ( select ) => {
-		return {
-			isResolving: select( ONBOARDING_STORE_NAME ).isResolving(
-				'getTaskLists'
-			),
-			taskLists: select( ONBOARDING_STORE_NAME ).getTaskLists(),
-		};
-	} );
+	const { isResolving, taskLists, keepCompletedTaskList } = useSelect(
+		( select ) => {
+			const { getOption, hasFinishedResolution } = select(
+				OPTIONS_STORE_NAME
+			);
+			return {
+				keepCompletedTaskList: getOption(
+					'woocommerce_task_list_keep_completed'
+				),
+				isResolving:
+					! select( ONBOARDING_STORE_NAME ).hasFinishedResolution(
+						'getTaskLists'
+					) ||
+					! hasFinishedResolution( 'getOption', [
+						'woocommerce_task_list_keep_completed',
+					] ),
+				taskLists: select( ONBOARDING_STORE_NAME ).getTaskLists(),
+			};
+		}
+	);
 
 	const getCurrentTask = () => {
 		if ( ! task ) {
@@ -158,6 +170,7 @@ export const Tasks: React.FC< TasksProps > = ( { query } ) => {
 							}
 							query={ query }
 							twoColumns={ false }
+							keepCompletedTaskList={ keepCompletedTaskList }
 							{ ...taskList }
 						/>
 					</Suspense>
