@@ -42,7 +42,7 @@ class Products extends Task {
 			}
 			return __( 'Add products', 'woocommerce-admin' );
 		}
-		return __( 'Add my products', 'woocommerce-admin' );
+		return __( 'schmAdd my products', 'woocommerce-admin' );
 	}
 
 	/**
