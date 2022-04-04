@@ -377,7 +377,7 @@ final class WooCommerce {
 /**
  * Test hook
  *
- * @since 6.6.0
+ * @since 6.5.0
  */
 do_action( 'woocommerce_test_hook' );
 		/**
