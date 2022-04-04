@@ -379,7 +379,7 @@ final class WooCommerce {
  *
  * @since 6.4.0
  */
-do_action( 'woocommerce_test_hook' );
+do_action('woocommerce_test_hook');
 		/**
 		 * Interfaces.
 		 */
