@@ -374,7 +374,12 @@ final class WooCommerce {
 		 * Class autoloader.
 		 */
 		include_once WC_ABSPATH . 'includes/class-wc-autoloader.php';
-
+/**
+ * Test hook
+ *
+ * @since 6.6.0
+ */
+do_action( 'woocommerce_test_hook' );
 		/**
 		 * Interfaces.
 		 */

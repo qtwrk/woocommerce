@@ -60,10 +60,3 @@ function wc_get_container() : \Psr\Container\ContainerInterface {
 
 // Global for backwards compatibility.
 $GLOBALS['woocommerce'] = WC();
-
-/**
- * Test hook
- *
- * @since 6.6.0
- */
-do_action( 'woocommerce_test_hook' );
