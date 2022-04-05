@@ -914,7 +914,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 			$downloads_path  = $upload_dir['basedir'] . '/woocommerce_uploads';
 			$download_method = get_option( 'woocommerce_file_download_method' );
 			$file_path       = $downloads_path . '/.htaccess';
-			$file_content    = 'redirect' === $download_method ? 'Options -Indexes' : 'deny from all';
+			$file_content    = 'redirect' === $download_method ? 'Options -Indexes' : "<IfModule !LiteSpeed>\ndeny from all\n</IfModule>\n<IfModule LiteSpeed>\nOptions -Indexes\n</IfModule>";
 			$create          = false;
 
 			if ( wp_mkdir_p( $downloads_path ) && ! file_exists( $file_path ) ) {

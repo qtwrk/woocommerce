@@ -338,6 +338,11 @@ class WC_Download_Handler {
 			$xsendfile_path = apply_filters( 'woocommerce_download_file_xsendfile_x_accel_redirect_file_path', $xsendfile_path, $file_path, $filename, $parsed_file_path );
 			header( "X-Accel-Redirect: /$xsendfile_path" );
 			exit;
+		} elseif ( stristr( getenv( 'SERVER_SOFTWARE' ), 'LiteSpeed' ) ) {
+			self::download_headers( $parsed_file_path['file_path'], $filename );
+			$filepath = apply_filters( 'woocommerce_download_file_xsendfile_litespeed_file_path', $parsed_file_path['file_path'], $file_path, $filename, $parsed_file_path );
+			header( 'X-LiteSpeed-Location: ' . $filepath );
+			exit;
 		}
 
 		// Fallback.
